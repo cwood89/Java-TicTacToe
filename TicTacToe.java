@@ -16,19 +16,53 @@ public class TicTacToe {
   // Accessor Methods
 
   public boolean isWinner(char p) {
-    return false;
+    // row1
+    if (this.board[0][0] == p && this.board[0][1] == p && this.board[0][2] == p) {
+      return true;
+      // row 2
+    } else if (this.board[1][0] == p && this.board[1][1] == p && this.board[1][2] == p) {
+      return true;
+      // row 3
+    } else if (this.board[2][0] == p && this.board[2][1] == p && this.board[2][2] == p) {
+      return true;
+      // column1
+    } else if (this.board[0][0] == p && this.board[1][0] == p && this.board[2][0] == p) {
+      return true;
+      // column 2
+    } else if (this.board[0][1] == p && this.board[1][1] == p && this.board[2][1] == p) {
+      return true;
+      // column 3
+    } else if (this.board[0][2] == p && this.board[1][2] == p && this.board[2][2] == p) {
+      return true;
+      // diagonal 1
+    } else if (this.board[0][0] == p && this.board[1][1] == p && this.board[2][2] == p) {
+      return true;
+      // diagonal 2
+    } else if (this.board[0][2] == p && this.board[1][1] == p && this.board[2][0] == p) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   public boolean isFull() {
-    return false;
+    if (this.turns == 9) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   public boolean isCat() {
-    return false;
+    if (this.isFull() && !this.isWinner('X') && !this.isWinner('O')) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   public boolean isValid(int r, int c) {
-    if (0 <= r && r <= 2 && 0 <= c && c <= 2)
+    if (0 <= r && r < 3 && 0 <= c && c < 3)
       return true;
     else
       return false;
@@ -54,7 +88,13 @@ public class TicTacToe {
     System.out.println("     0 1 2 ");
   }
 
+  public char boardVal(int r, int c) {
+    return this.board[r][c];
+  }
+
   // Modifiers
   public void playMove(char p, int r, int c) {
+    this.board[r][c] = p;
+    this.turns++;
   }
 }

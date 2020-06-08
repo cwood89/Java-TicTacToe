@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class TicTacToeTester {
   private static TicTacToe ttt;
@@ -79,7 +80,7 @@ public class TicTacToeTester {
     }
     System.out.println("  [ok]");
     System.out.println("\nAll tests passed!\n");
-
+    playGame();
   }
 
   private static void check(String property, boolean is, boolean shouldbe) {
@@ -134,4 +135,47 @@ public class TicTacToeTester {
       293, 294, 295, 300, 302, 305, 307, 308, 309, 312, 313, 314, 316, 329, 331, 337, 339, 340, 341, 342, 345, 348, 356,
       358, 369, 372, 401, 402, 403, 405, 409, 410, 420, 421, 428, 433, 448, 449, 450, 452, 456, 457, 458, 460, 464, 465,
       466, 468, 480, 481, 482, 484 };
+
+  private static void playGame() {
+    Scanner in = new Scanner(System.in);
+    TicTacToe game = new TicTacToe();
+    while (!game.isFull()) {
+
+      System.out.println("Tic Tac Toe! You're X.");
+      game.displayBoard();
+
+      int row;
+      int col;
+      do {
+        System.out.print("Pick a row: ");
+        row = in.nextInt();
+        System.out.print("Pick a column: ");
+        col = in.nextInt();
+        if (game.boardVal(row, col) != ' ')
+          System.out.println("Pick an empty location.");
+      } while (game.boardVal(row, col) != ' ');
+      game.playMove('X', row, col);
+
+      int randRow;
+      int randCol;
+
+      do {
+        randRow = (int) (Math.random() * 3);
+        randCol = (int) (Math.random() * 3);
+        System.out.println(randRow + randCol);
+      } while (game.boardVal(randRow, randCol) != ' ');
+      game.playMove('O', randRow, randCol);
+
+      game.displayBoard();
+      if (game.isWinner('X')) {
+        System.out.println("You win!");
+        break;
+      } else if (game.isWinner('O')) {
+        System.out.println("You lose...");
+        break;
+      }
+    }
+
+    in.close();
+  }
 }
